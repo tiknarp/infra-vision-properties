@@ -5,6 +5,8 @@ import { Gallery4 } from "@/components/ui/gallery4";
 import { FeatureSteps } from "@/components/ui/feature-section";
 import { PartnersSection } from "@/components/ui/partners-section";
 import { ContactSection } from "@/components/ui/contact-section";
+import { ConsultationSection } from "@/components/ui/consultation-section";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 // Import images
 import heroBg from "@/assets/hero-bg.jpg";
@@ -18,43 +20,116 @@ const Index = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Real estate gallery data
-  const galleryItems = [
+  // Real estate gallery data with tabs
+  const galleryTabs = [
     {
-      id: "luxury-residences",
-      title: "Premium Residential Complexes",
-      description: "Discover luxury apartments and villas in prime locations across Delhi NCR. Featuring modern amenities, premium finishes, and world-class facilities for discerning homebuyers.",
-      href: "/properties/residential",
-      image: residential,
+      id: "featured",
+      label: "Featured",
+      items: [
+        {
+          id: "luxury-residences",
+          title: "Premium Residential Complexes",
+          description: "Discover luxury apartments and villas in prime locations across Delhi NCR. Featuring modern amenities, premium finishes, and world-class facilities for discerning homebuyers.",
+          href: "/properties/residential",
+          image: residential,
+        },
+        {
+          id: "commercial-spaces",
+          title: "Prime Commercial Properties",
+          description: "Invest in high-yield commercial real estate including office complexes, retail spaces, and mixed-use developments in strategic business districts.",
+          href: "/properties/commercial",
+          image: commercial,
+        },
+        {
+          id: "retail-investment",
+          title: "Retail & Shopping Centers",
+          description: "Explore profitable retail investment opportunities in premium shopping malls and high-street commercial spaces with excellent footfall and growth potential.",
+          href: "/properties/retail",
+          image: retail,
+        },
+      ]
     },
     {
-      id: "commercial-spaces",
-      title: "Prime Commercial Properties",
-      description: "Invest in high-yield commercial real estate including office complexes, retail spaces, and mixed-use developments in strategic business districts.",
-      href: "/properties/commercial",
-      image: commercial,
+      id: "news",
+      label: "News",
+      items: [
+        {
+          id: "market-update-1",
+          title: "Delhi NCR Property Market Soars 15% in Q4 2024",
+          description: "Recent market analysis shows unprecedented growth in Delhi NCR real estate sector, driven by infrastructure development and policy reforms.",
+          href: "/news/market-growth",
+          image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1000&auto=format&fit=crop",
+        },
+        {
+          id: "new-project-launch",
+          title: "Luxury Project Launch in Gurgaon",
+          description: "Birla Real Estate announces their newest luxury residential project featuring world-class amenities and sustainable design.",
+          href: "/news/project-launch",
+          image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=1000&auto=format&fit=crop",
+        },
+        {
+          id: "policy-update",
+          title: "New RERA Guidelines Benefit Homebuyers",
+          description: "Latest regulatory changes promise better transparency and faster project delivery timelines for property buyers.",
+          href: "/news/rera-update",
+          image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop",
+        },
+      ]
     },
     {
-      id: "retail-investment",
-      title: "Retail & Shopping Centers",
-      description: "Explore profitable retail investment opportunities in premium shopping malls and high-street commercial spaces with excellent footfall and growth potential.",
-      href: "/properties/retail",
-      image: retail,
+      id: "research",
+      label: "Research",
+      items: [
+        {
+          id: "investment-analysis",
+          title: "Real Estate Investment Trends 2024",
+          description: "Comprehensive analysis of investment opportunities across residential, commercial, and retail sectors in Indian real estate market.",
+          href: "/research/investment-trends",
+          image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000&auto=format&fit=crop",
+        },
+        {
+          id: "market-forecast",
+          title: "Property Price Forecast Delhi NCR",
+          description: "Data-driven insights into price movements and market dynamics across key micro-markets in Delhi NCR region.",
+          href: "/research/price-forecast",
+          image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop",
+        },
+        {
+          id: "rental-yields",
+          title: "Rental Yield Analysis by Location",
+          description: "Detailed study of rental returns across different property types and locations to help investors make informed decisions.",
+          href: "/research/rental-yields",
+          image: "https://images.unsplash.com/photo-1448630360428-65456885c650?q=80&w=1000&auto=format&fit=crop",
+        },
+      ]
     },
     {
-      id: "investment-properties",
-      title: "Investment Grade Assets",
-      description: "Portfolio of carefully curated investment properties offering strong rental yields and capital appreciation potential in emerging and established markets.",
-      href: "/properties/investment",
-      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1000&auto=format&fit=crop",
-    },
-    {
-      id: "new-developments",
-      title: "Upcoming Developments",
-      description: "Get exclusive access to pre-launch properties from top developers. Early bird pricing and premium unit selection in upcoming luxury projects.",
-      href: "/properties/new-developments",
-      image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=1000&auto=format&fit=crop",
-    },
+      id: "blogs",
+      label: "Blogs",
+      items: [
+        {
+          id: "buying-guide",
+          title: "First-Time Home Buyer's Complete Guide",
+          description: "Essential tips and insights for first-time property buyers navigating the Delhi NCR real estate market successfully.",
+          href: "/blog/buying-guide",
+          image: "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1000&auto=format&fit=crop",
+        },
+        {
+          id: "investment-tips",
+          title: "5 Smart Real Estate Investment Strategies",
+          description: "Expert advice on building a profitable real estate portfolio with strategic investment approaches and market timing.",
+          href: "/blog/investment-tips",
+          image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=1000&auto=format&fit=crop",
+        },
+        {
+          id: "legal-guide",
+          title: "Understanding Property Documentation",
+          description: "Complete guide to legal aspects of property purchase including documentation, approvals, and compliance requirements.",
+          href: "/blog/legal-guide",
+          image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1000&auto=format&fit=crop",
+        },
+      ]
+    }
   ];
 
   // Services data
@@ -98,19 +173,21 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      
-      {/* Hero Section with Scroll Expansion */}
-      <ScrollExpandMedia
-        mediaType="image"
-        mediaSrc={realEstateVideo}
-        bgImageSrc={heroBg}
-        title="Aim Infra Build"
-        date="Established 1995"
-        scrollToExpand="Excellence in Real Estate"
-        textBlend={true}
-      >
+    <>
+      <LoadingSpinner />
+      <div className="min-h-screen">
+        <Navbar />
+        
+        {/* Hero Section with Scroll Expansion */}
+        <ScrollExpandMedia
+          mediaType="image"
+          mediaSrc={realEstateVideo}
+          bgImageSrc={heroBg}
+          title="Aim Infra Build"
+          date="Established 1995"
+          scrollToExpand="Excellence in Real Estate"
+          textBlend={true}
+        >
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6 text-foreground">
             About Aim Infra Build
@@ -132,24 +209,39 @@ const Index = () => {
             </p>
           </div>
         </div>
-      </ScrollExpandMedia>
+        </ScrollExpandMedia>
 
-      {/* Featured Properties Gallery */}
-      <Gallery4 items={galleryItems} />
+        {/* Featured Properties Gallery with Tabs */}
+        <div id="properties">
+          <Gallery4 
+            title="Explore Our Portfolio"
+            description="Discover premium properties, latest market insights, research reports, and expert advice from our real estate professionals."
+            tabs={galleryTabs}
+            items={galleryTabs[0].items}
+          />
+        </div>
 
-      {/* Services Section */}
-      <FeatureSteps
-        features={servicesData}
-        title="Our Comprehensive Services"
-        autoPlayInterval={5000}
-      />
+        {/* Services Section */}
+        <div id="services">
+          <FeatureSteps
+            features={servicesData}
+            title="Our Comprehensive Services"
+            autoPlayInterval={5000}
+          />
+        </div>
 
-      {/* Partners Section */}
-      <PartnersSection />
+        {/* Partners Section */}
+        <PartnersSection />
 
-      {/* Contact Section */}
-      <ContactSection />
-    </div>
+        {/* Consultation Section */}
+        <ConsultationSection />
+
+        {/* Contact Section */}
+        <div id="contact">
+          <ContactSection />
+        </div>
+      </div>
+    </>
   );
 };
 

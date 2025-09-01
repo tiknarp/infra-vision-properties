@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -19,20 +19,45 @@ const cities = [
   "Saket", "Lajpat Nagar", "Janakpuri", "Pitampura", "Mayur Vihar"
 ];
 
+const navigationItems = [
+  { name: 'Properties', href: '#properties' },
+  { name: 'Services', href: '#services' },
+  { name: 'Partners', href: '#partners' },
+  { name: 'About', href: '#about' },
+  { name: 'Contact', href: '#contact' },
+];
+
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedPropertyType, setSelectedPropertyType] = useState("");
   const [isPropertyDropdownOpen, setIsPropertyDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const filteredCities = cities.filter(city =>
     city.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border shadow-sm">
-      <div className="container mx-auto px-4">
+    <nav className={cn(
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+      isScrolled 
+        ? "bg-background/95 backdrop-blur-lg border-b border-border shadow-lg" 
+        : "bg-transparent"
+    )}>
+      <div className={cn(
+        "container mx-auto px-4 transition-all duration-300",
+        isScrolled && "max-w-6xl rounded-2xl mt-2 border bg-background/90 backdrop-blur-lg"
+      )}>
         <div className="flex items-center justify-between h-16">
           {/* Logo and Company Name */}
           <div className="flex items-center space-x-3">
@@ -43,9 +68,23 @@ export function Navbar() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
-            {/* Property Type Dropdown */}
-            <div className="relative">
+          <div className="hidden md:flex items-center space-x-8">
+            {/* Navigation Items */}
+            <div className="flex items-center space-x-6">
+              {navigationItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+
+            <div className="flex items-center space-x-4">
+              {/* Property Type Dropdown */}
+              <div className="relative">
               <button
                 onClick={() => setIsPropertyDropdownOpen(!isPropertyDropdownOpen)}
                 className="flex items-center space-x-1 px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
@@ -108,10 +147,7 @@ export function Navbar() {
                 </div>
               )}
             </div>
-
-            <Button variant="luxury" size="sm">
-              Contact Us
-            </Button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}

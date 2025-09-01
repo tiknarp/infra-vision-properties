@@ -2,6 +2,7 @@
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,17 +24,26 @@ export interface Gallery4Props {
   title?: string;
   description?: string;
   items: Gallery4Item[];
+  tabs?: {
+    id: string;
+    label: string;
+    items: Gallery4Item[];
+  }[];
 }
 
 const Gallery4 = ({
   title = "Featured Properties",
   description = "Discover our premium property portfolio across Delhi NCR. From luxury residential complexes to prime commercial spaces, we offer exclusive access to the finest real estate opportunities.",
   items,
+  tabs,
 }: Gallery4Props) => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeTab, setActiveTab] = useState(tabs ? tabs[0].id : '');
+  
+  const displayItems = tabs ? tabs.find(tab => tab.id === activeTab)?.items || items : items;
 
   useEffect(() => {
     if (!carouselApi) {
@@ -60,6 +70,22 @@ const Gallery4 = ({
               {title}
             </h2>
             <p className="max-w-lg text-muted-foreground">{description}</p>
+            
+            {tabs && (
+              <div className="flex gap-2 mt-6">
+                {tabs.map((tab) => (
+                  <Button
+                    key={tab.id}
+                    variant={activeTab === tab.id ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setActiveTab(tab.id)}
+                    className="transition-all duration-200"
+                  >
+                    {tab.label}
+                  </Button>
+                ))}
+              </div>
+            )}
           </div>
           <div className="hidden shrink-0 gap-2 md:flex">
             <Button
@@ -88,18 +114,24 @@ const Gallery4 = ({
         </div>
       </div>
       <div className="w-full">
-        <Carousel
-          setApi={setCarouselApi}
-          opts={{
-            breakpoints: {
-              "(max-width: 768px)": {
-                dragFree: true,
-              },
-            },
-          }}
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
         >
-          <CarouselContent className="ml-0 2xl:ml-[max(8rem,calc(50vw-700px))] 2xl:mr-[max(0rem,calc(50vw-700px))]">
-            {items.map((item) => (
+          <Carousel
+            setApi={setCarouselApi}
+            opts={{
+              breakpoints: {
+                "(max-width: 768px)": {
+                  dragFree: true,
+                },
+              },
+            }}
+          >
+            <CarouselContent className="ml-0 2xl:ml-[max(8rem,calc(50vw-700px))] 2xl:mr-[max(0rem,calc(50vw-700px))]">
+              {displayItems.map((item) => (
               <CarouselItem
                 key={item.id}
                 className="max-w-[320px] pl-[20px] lg:max-w-[360px]"
@@ -127,11 +159,12 @@ const Gallery4 = ({
                   </div>
                 </div>
               </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </motion.div>
         <div className="mt-8 flex justify-center gap-2">
-          {items.map((_, index) => (
+          {displayItems.map((_, index) => (
             <button
               key={index}
               className={`h-2 w-2 rounded-full transition-colors ${
