@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { TextShimmerWave } from "@/components/ui/text-shimmer-wave";
 
 export function LoadingSpinner() {
   const [isLoading, setIsLoading] = useState(true);
@@ -10,7 +9,7 @@ export function LoadingSpinner() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -26,33 +25,25 @@ export function LoadingSpinner() {
     >
       <div className="text-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="mb-8"
+          className="w-16 h-16 mx-auto mb-8 relative"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
         >
-          <div className="w-16 h-16 mx-auto mb-6 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-luxury">
-            <span className="text-white font-bold text-2xl">A</span>
-          </div>
-          <h2 className="text-3xl font-bold text-white mb-4">Aim Infra Build</h2>
+          <div className="w-16 h-16 border-4 border-accent/20 rounded-full"></div>
+          <div className="absolute top-0 left-0 w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
         </motion.div>
         
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.5 }}
-          className="mt-8"
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="space-y-2"
         >
-          <TextShimmerWave
-            className="text-2xl font-semibold [--base-color:#ffffff] [--base-gradient-color:#C9A876]"
-            duration={1.5}
-            spread={1}
-            zDistance={8}
-            scaleDistance={1.2}
-            rotateYDistance={15}
-          >
-            Crafting Your Dream Property Experience...
-          </TextShimmerWave>
+          <div className="w-12 h-12 mx-auto mb-4 bg-gradient-primary rounded-lg flex items-center justify-center">
+            <span className="text-white font-bold text-xl">A</span>
+          </div>
+          <h2 className="text-2xl font-bold text-white mb-2">Aim Infra Build</h2>
+          <p className="text-white/80">Loading your property experience...</p>
         </motion.div>
       </div>
     </motion.div>
