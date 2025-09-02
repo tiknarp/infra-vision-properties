@@ -5,7 +5,6 @@ import { Gallery4 } from "@/components/ui/gallery4";
 import { FeatureSteps } from "@/components/ui/feature-section";
 import { PartnersSection } from "@/components/ui/partners-section";
 import { ContactSection } from "@/components/ui/contact-section";
-import { ConsultationSection } from "@/components/ui/consultation-section";
 import { Footer } from "@/components/ui/footer";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
@@ -233,9 +232,6 @@ const Index = () => {
 
         {/* Partners Section */}
         <PartnersSection />
-
-        {/* Consultation Section */}
-        <ConsultationSection />
 
         {/* Contact Section */}
         <div id="contact">
