@@ -48,23 +48,25 @@ export function Navbar() {
   );
 
   return (
-    <nav className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-      isScrolled 
-        ? "bg-background/95 backdrop-blur-lg border-b border-border shadow-lg" 
-        : "bg-transparent"
-    )}>
+    <nav className="fixed top-0 left-0 right-0 z-50 p-2">
       <div className={cn(
-        "container mx-auto px-4 transition-all duration-300",
-        isScrolled && "max-w-6xl rounded-2xl mt-2 border bg-background/90 backdrop-blur-lg"
+        "mx-auto transition-all duration-500 ease-in-out",
+        isScrolled 
+          ? "max-w-4xl bg-background/80 backdrop-blur-xl border border-border/50 rounded-2xl shadow-2xl" 
+          : "max-w-7xl bg-transparent"
       )}>
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 px-6">
           {/* Logo and Company Name */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center shadow-luxury">
               <span className="text-white font-bold text-lg">A</span>
             </div>
-            <span className="text-xl font-bold text-foreground">Aim Infra Build</span>
+            <span className={cn(
+              "text-xl font-bold transition-colors duration-300",
+              isScrolled ? "text-foreground" : "text-white drop-shadow-lg"
+            )}>
+              Aim Infra Build
+            </span>
           </div>
 
           {/* Desktop Navigation */}
@@ -75,7 +77,10 @@ export function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                  className={cn(
+                    "text-sm font-medium transition-colors duration-300 hover:text-accent",
+                    isScrolled ? "text-foreground" : "text-white/90 drop-shadow-sm"
+                  )}
                 >
                   {item.name}
                 </a>
@@ -87,14 +92,19 @@ export function Navbar() {
               <div className="relative">
               <button
                 onClick={() => setIsPropertyDropdownOpen(!isPropertyDropdownOpen)}
-                className="flex items-center space-x-1 px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
+                className={cn(
+                  "flex items-center space-x-1 px-4 py-2 text-sm font-medium transition-colors duration-300 rounded-lg",
+                  isScrolled 
+                    ? "text-foreground hover:text-primary hover:bg-accent/10" 
+                    : "text-white/90 hover:text-accent hover:bg-white/10 backdrop-blur-sm"
+                )}
               >
                 <span>{selectedPropertyType || "Property Type"}</span>
                 <ChevronDown className="w-4 h-4" />
               </button>
               
               {isPropertyDropdownOpen && (
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-lg shadow-luxury border border-border z-50">
+                <div className="absolute top-full left-0 mt-1 w-48 bg-background/95 backdrop-blur-xl rounded-lg shadow-luxury border border-border/50 z-50">
                   {propertyTypes.map((type) => (
                     <button
                       key={type.value}
@@ -113,7 +123,10 @@ export function Navbar() {
 
             {/* Search Bar with City Dropdown */}
             <div className="relative">
-              <div className="flex items-center bg-muted rounded-lg">
+              <div className={cn(
+                "flex items-center rounded-lg transition-colors duration-300",
+                isScrolled ? "bg-muted/50" : "bg-white/10 backdrop-blur-sm"
+              )}>
                 <input
                   type="text"
                   placeholder="Search cities..."
@@ -123,15 +136,18 @@ export function Navbar() {
                     setIsCityDropdownOpen(e.target.value.length > 0);
                   }}
                   onFocus={() => setIsCityDropdownOpen(searchQuery.length > 0)}
-                  className="px-4 py-2 bg-transparent border-none outline-none text-sm w-64"
+                  className={cn(
+                    "px-4 py-2 bg-transparent border-none outline-none text-sm w-64 placeholder:text-opacity-70",
+                    isScrolled ? "text-foreground placeholder:text-muted-foreground" : "text-white placeholder:text-white/60"
+                  )}
                 />
                 <Button size="sm" variant="ghost" className="px-3">
-                  <Search className="w-4 h-4" />
+                  <Search className={cn("w-4 h-4", isScrolled ? "text-foreground" : "text-white/90")} />
                 </Button>
               </div>
 
               {isCityDropdownOpen && filteredCities.length > 0 && (
-                <div className="absolute top-full left-0 mt-1 w-full bg-white rounded-lg shadow-luxury border border-border z-50 max-h-48 overflow-y-auto">
+                <div className="absolute top-full left-0 mt-1 w-full bg-background/95 backdrop-blur-xl rounded-lg shadow-luxury border border-border/50 z-50 max-h-48 overflow-y-auto">
                   {filteredCities.map((city) => (
                     <button
                       key={city}
@@ -153,7 +169,12 @@ export function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-foreground hover:text-primary"
+            className={cn(
+              "md:hidden p-2 rounded-lg transition-colors duration-300",
+              isScrolled 
+                ? "text-foreground hover:text-primary hover:bg-accent/10" 
+                : "text-white hover:text-accent hover:bg-white/10"
+            )}
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>

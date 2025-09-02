@@ -6,6 +6,7 @@ import { FeatureSteps } from "@/components/ui/feature-section";
 import { PartnersSection } from "@/components/ui/partners-section";
 import { ContactSection } from "@/components/ui/contact-section";
 import { ConsultationSection } from "@/components/ui/consultation-section";
+import { Footer } from "@/components/ui/footer";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 // Import images
@@ -241,6 +242,8 @@ const Index = () => {
           <ContactSection />
         </div>
       </div>
+      
+      <Footer />
     </>
   );
 };

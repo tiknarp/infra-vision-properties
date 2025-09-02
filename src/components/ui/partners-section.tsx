@@ -3,14 +3,46 @@
 import { motion } from "framer-motion";
 
 const partners = [
-  { name: "Birla Real Estate", logo: "B" },
-  { name: "Elan", logo: "E" },
-  { name: "DLF", logo: "D" },
-  { name: "Godrej Properties", logo: "G" },
-  { name: "Indiabulls", logo: "I" },
-  { name: "Tata Housing", logo: "T" },
-  { name: "Sobha", logo: "S" },
-  { name: "Brigade Group", logo: "BG" },
+  { 
+    name: "Birla Real Estate", 
+    logo: "https://www.birlarealestate.com/images/logo.png",
+    fallback: "B"
+  },
+  { 
+    name: "Elan Group", 
+    logo: "https://www.elangroup.in/images/logo.png",
+    fallback: "E"
+  },
+  { 
+    name: "DLF Limited", 
+    logo: "https://www.dlf.in/dlf/wcm/connect/dlf/DLF/logo.png",
+    fallback: "D"
+  },
+  { 
+    name: "Godrej Properties", 
+    logo: "https://www.godrejproperties.com/images/logo.png",
+    fallback: "G"
+  },
+  { 
+    name: "Indiabulls", 
+    logo: "https://www.indiabullsrealestate.com/images/logo.png",
+    fallback: "I"
+  },
+  { 
+    name: "Tata Housing", 
+    logo: "https://www.tatahousing.in/images/logo.png",
+    fallback: "T"
+  },
+  { 
+    name: "Sobha Limited", 
+    logo: "https://www.sobha.com/images/logo.png",
+    fallback: "S"
+  },
+  { 
+    name: "Brigade Group", 
+    logo: "https://www.brigadegroup.com/images/logo.png",
+    fallback: "BG"
+  },
 ];
 
 export function PartnersSection() {
@@ -63,9 +95,21 @@ export function PartnersSection() {
               transition={{ delay: index * 0.1, duration: 0.5 }}
               className="flex flex-col items-center"
             >
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-luxury rounded-2xl flex items-center justify-center shadow-elegant hover:shadow-luxury transition-all duration-300 mb-3">
-                <span className="text-white font-bold text-lg md:text-xl">
-                  {partner.logo}
+              <div className="w-20 h-16 md:w-24 md:h-20 bg-white/90 rounded-2xl flex items-center justify-center shadow-elegant hover:shadow-luxury transition-all duration-300 mb-3 p-3 hover:scale-105 border border-border/20">
+                <img 
+                  src={partner.logo} 
+                  alt={`${partner.name} logo`}
+                  className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                  onError={(e) => {
+                    // Fallback to text if image fails to load
+                    const target = e.currentTarget as HTMLImageElement;
+                    const nextSibling = target.nextElementSibling as HTMLElement;
+                    target.style.display = 'none';
+                    nextSibling.style.display = 'flex';
+                  }}
+                />
+                <span className="text-primary font-bold text-lg md:text-xl hidden items-center justify-center w-full h-full">
+                  {partner.fallback}
                 </span>
               </div>
               <span className="text-sm font-medium text-muted-foreground text-center">
