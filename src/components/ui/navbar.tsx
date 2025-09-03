@@ -65,12 +65,21 @@ export function Navbar() {
                 className="w-full h-full object-contain"
               />
             </div>
-            <span className={cn(
-              "text-xl font-bold transition-colors duration-300 whitespace-nowrap overflow-hidden text-ellipsis",
-              isScrolled ? "text-foreground max-w-[200px]" : "text-white drop-shadow-lg"
+            <div className={cn(
+              "font-bold transition-all duration-500 ease-in-out",
+              isScrolled 
+                ? "text-lg text-foreground opacity-0 scale-95 max-w-0 overflow-hidden" 
+                : "text-xl text-white drop-shadow-lg opacity-100 scale-100"
             )}>
-              Aim Infra Build
-            </span>
+              {!isScrolled ? (
+                <div className="flex flex-col leading-tight">
+                  <span>Aim</span>
+                  <span>Infra Build</span>
+                </div>
+              ) : (
+                <span className="whitespace-nowrap">Aim Infra Build</span>
+              )}
+            </div>
           </div>
 
           {/* Desktop Navigation */}
