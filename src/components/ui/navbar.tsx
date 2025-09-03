@@ -66,18 +66,18 @@ export function Navbar() {
               />
             </div>
             <div className={cn(
-              "font-bold transition-all duration-500 ease-in-out",
+              "font-semibold tracking-wide transition-all duration-500 ease-in-out",
               isScrolled 
-                ? "text-lg text-foreground opacity-0 scale-95 max-w-0 overflow-hidden" 
-                : "text-xl text-white drop-shadow-lg opacity-100 scale-100"
+                ? "text-base text-foreground opacity-0 scale-95 max-w-0 overflow-hidden" 
+                : "text-white drop-shadow-lg opacity-100 scale-100"
             )}>
               {!isScrolled ? (
-                <div className="flex flex-col leading-tight">
-                  <span>Aim</span>
-                  <span>Infra Build</span>
+                <div className="flex flex-col leading-none space-y-0">
+                  <span className="text-xl font-bold">Aim</span>
+                  <span className="text-sm font-medium tracking-wider opacity-90">Infra Build</span>
                 </div>
               ) : (
-                <span className="whitespace-nowrap">Aim Infra Build</span>
+                <span className="whitespace-nowrap text-lg font-semibold">Aim Infra Build</span>
               )}
             </div>
           </div>
