@@ -3,7 +3,7 @@ import { Navbar } from "@/components/ui/navbar";
 import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero";
 import { Gallery4 } from "@/components/ui/gallery4";
 import { FeatureSteps } from "@/components/ui/feature-section";
-import { PartnersSection } from "@/components/ui/partners-section";
+import PartnersGallery from "@/components/ui/sticky-scroll";
 import { ContactSection } from "@/components/ui/contact-section";
 import { ConsultationSection } from "@/components/ui/consultation-section";
 import { Footer } from "@/components/ui/footer";
@@ -232,7 +232,9 @@ const Index = () => {
         </div>
 
         {/* Partners Section */}
-        <PartnersSection />
+        <div id="partners">
+          <PartnersGallery />
+        </div>
 
         {/* Consultation Section */}
         <ConsultationSection />

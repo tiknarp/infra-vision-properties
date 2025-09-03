@@ -58,12 +58,16 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 px-6">
           {/* Logo and Company Name */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center shadow-luxury">
-              <span className="text-white font-bold text-lg">A</span>
+            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-luxury p-1">
+              <img 
+                src="/lovable-uploads/92a843f7-2309-455c-a972-6ac6092d2f53.png" 
+                alt="AIM Logo"
+                className="w-full h-full object-contain"
+              />
             </div>
             <span className={cn(
-              "text-xl font-bold transition-colors duration-300",
-              isScrolled ? "text-foreground" : "text-white drop-shadow-lg"
+              "text-xl font-bold transition-colors duration-300 whitespace-nowrap overflow-hidden text-ellipsis",
+              isScrolled ? "text-foreground max-w-[200px]" : "text-white drop-shadow-lg"
             )}>
               Aim Infra Build
             </span>
