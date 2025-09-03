@@ -17,9 +17,9 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 215 20% 15%;
 
-    --primary: 215 84% 10%;
+    --primary: 0 70% 40%;
     --primary-foreground: 0 0% 98%;
-    --primary-glow: 215 100% 20%;
+    --primary-glow: 0 85% 50%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 215 20% 15%;
@@ -31,7 +31,7 @@ All colors MUST be HSL.
     --accent-foreground: 215 20% 15%;
     --accent-glow: 43 100% 70%;
 
-    --luxury: 215 84% 8%;
+    --luxury: 0 75% 35%;
     --luxury-foreground: 0 0% 98%;
     --luxury-gold: 43 96% 56%;
 

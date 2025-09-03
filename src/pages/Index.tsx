@@ -185,7 +185,7 @@ const Index = () => {
           mediaSrc={realEstateVideo}
           bgImageSrc={heroBg}
           title="Aim Infra Build"
-          date="Established 1995"
+          date="Established 2002"
           scrollToExpand="Excellence in Real Estate"
           textBlend={true}
         >
